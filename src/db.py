@@ -20,9 +20,8 @@ def close_db(e=None):
     db = g.pop('db', None)
 
     if db is not None:
-        db.close()
+        db.close()  
 
-#Add the Python functions that will run these SQL commands to the db.py file:
 def init_db():
     db = get_db()
 
@@ -36,7 +35,7 @@ def init_db_command():
     init_db()
     click.echo('Initialized the database.')
 
-# Register with the Application
+
 sqlite3.register_converter(
     "timestamp", lambda v: datetime.fromisoformat(v.decode())
 )
