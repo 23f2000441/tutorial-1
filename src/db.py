@@ -22,6 +22,7 @@ def close_db(e=None):
     if db is not None:
         db.close()
 
+#Add the Python functions that will run these SQL commands to the db.py file:
 def init_db():
     db = get_db()
 
@@ -35,7 +36,11 @@ def init_db_command():
     init_db()
     click.echo('Initialized the database.')
 
-
+# Register with the Application
 sqlite3.register_converter(
     "timestamp", lambda v: datetime.fromisoformat(v.decode())
 )
+
+def init_app(app):
+    app.teardown_appcontext(close_db)
+    app.cli.add_command(init_db_command)
